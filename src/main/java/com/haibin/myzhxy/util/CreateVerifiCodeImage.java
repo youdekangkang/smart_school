@@ -39,9 +39,7 @@ public class CreateVerifiCodeImage {
      * @param: no
      * @return: char[]
      */
-    public static char[] getVerifiCode() {
-        return verifiCode;
-    }
+    public static char[] getVerifiCode() { return verifiCode; }
 
     /**
      * @description: 随机生成验证码
