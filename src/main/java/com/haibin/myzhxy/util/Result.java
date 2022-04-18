@@ -19,6 +19,7 @@ public class Result<T> {
     private String message;
 
     @ApiModelProperty(value = "返回数据")
+    //data是真正封装数据的位置
     private T data;
 
     public Result(){}
