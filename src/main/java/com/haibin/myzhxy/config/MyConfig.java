@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-@MapperScan("com.atguigu.zhxy.mapper")
+@MapperScan("com.haibin.myzhxy.mapper")
 public class MyConfig {
 
     /**
