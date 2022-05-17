@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
+import java.util.List;
+
 @Service("gradeServiceImpl")
 @Transactional
 public class GradeServiceImpl extends ServiceImpl<GradeMapper, Grade> implements GradeService {
@@ -31,5 +33,10 @@ public class GradeServiceImpl extends ServiceImpl<GradeMapper, Grade> implements
 
         return page;
 
+    }
+
+    @Override
+    public List<Grade> getGrades() {
+        return baseMapper.selectList(null);
     }
 }

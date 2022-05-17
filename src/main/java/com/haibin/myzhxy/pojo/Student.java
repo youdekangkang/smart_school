@@ -23,4 +23,8 @@ public class Student {
     private String introduction;
     private String portrait_path;
     private String clazz_name;
+
+    public Object getClazzName() {
+        return name;
+    }
 }

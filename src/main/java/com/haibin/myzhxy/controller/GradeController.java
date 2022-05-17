@@ -21,6 +21,13 @@ public class GradeController {
     @Autowired
     private GradeService gradeServicel;
 
+    @ApiOperation("获取所有Grade信息")
+    @GetMapping("/getGrades")
+    public Result getGrades(){
+        List<Grade> grades = gradeServicel.getGrades();
+        return Result.ok(grades);
+    }
+
     @ApiOperation("删除grade信息")
     @DeleteMapping("/deleteGrade")
     public Result deleteGrade(

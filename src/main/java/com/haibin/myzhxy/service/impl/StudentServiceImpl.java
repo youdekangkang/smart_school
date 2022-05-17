@@ -2,6 +2,8 @@ package com.haibin.myzhxy.service.impl;
 
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.haibin.myzhxy.mapper.StudentMapper;
 import com.haibin.myzhxy.pojo.LoginForm;
@@ -32,5 +34,29 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, Student> impl
         QueryWrapper queryWrapper = new QueryWrapper<Student>();
         queryWrapper.eq("id",userId);
         return baseMapper.selectOne(queryWrapper);
+    }
+
+    @Override
+    /**
+     * 按条件查询学生信息【带分页】
+     */
+    public IPage<Student> getStudentByOpr(Page<Student> pageParam,Student student){
+        QueryWrapper<Student> queryWrapper = null;
+        if(student != null) {
+            queryWrapper = new QueryWrapper<>();
+            if (student.getClazzName() != null) {
+                queryWrapper.eq("clazz_name", student.getClazzName());
+            }
+            if (student.getName() != null) {
+                queryWrapper.like("name", student.getName());
+            }
+            // Dsc为降序排序 Asc为升序排序
+            queryWrapper.orderByDesc("id");
+            queryWrapper.orderByAsc("name");
+        }
+        //创建分页对象
+        IPage<Student> pages = baseMapper.selectPage(pageParam, queryWrapper);
+
+        return pages;
     }
 }
