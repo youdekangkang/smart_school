@@ -12,19 +12,24 @@ import com.haibin.myzhxy.util.JwtHelper;
 import com.haibin.myzhxy.util.Result;
 import com.haibin.myzhxy.util.ResultCodeEnum;
 import io.jsonwebtoken.JwtParser;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.omg.CORBA.INTERNAL;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpRequest;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.UUID;
 
 //防止非增删改查操作的controller
 @RestController
@@ -37,6 +42,28 @@ public class SystemController {
     private StudentService studentService;
     @Autowired
     private TeacherService teacherService;
+
+    @ApiOperation("文件上传统一入口")
+    @PostMapping("/headerImgUpload")
+    public Result headerImgUpload(
+            @ApiParam("图片文件")  @RequestPart("multipartFile") MultipartFile multipartFile
+    ){
+        // 使用UUID生成新的文件名
+        String uuid = UUID.randomUUID().toString().replace("-","").toLowerCase();
+        // 生成新的文件名
+        String filename = uuid.concat(multipartFile.getOriginalFilename());
+        // 生成文件保存路径(因为实际生产中会使用真正的文件存储服务器)
+        String portraitPath ="D:/代码库/InfoSys/smart_school/target/classes/static/images".concat(filename);
+        //保存文件
+        try {
+            multipartFile.transferTo(new File(portraitPath));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        String headerImg ="upload/"+filename;
+        return Result.ok(headerImg);
+
+    }
 
 
     @GetMapping("/getInfo")
