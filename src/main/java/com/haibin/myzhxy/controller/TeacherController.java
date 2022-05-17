@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Api(tags = "教师信息管理控制器")
+@Api(tags = "教师控制器")
 @RestController      //不是@Controller 这里需要使用异步交互
 @RequestMapping("/sms/teacherController")
 public class TeacherController {

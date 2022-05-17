@@ -7,6 +7,7 @@ import com.haibin.myzhxy.pojo.Student;
 import com.haibin.myzhxy.service.StudentService;
 import com.haibin.myzhxy.util.MD5;
 import com.haibin.myzhxy.util.Result;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.apache.logging.log4j.util.Strings;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@Api(tags = "学生控制器")
 @RestController      //不是@Controller 这里需要使用异步交互
 @RequestMapping("/sms/studentController")
 public class StudentController {

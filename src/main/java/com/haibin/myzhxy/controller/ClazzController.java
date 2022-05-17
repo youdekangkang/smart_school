@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Api("班级管理器")
+@Api(tags = "班级管理器")
 @RestController      //不是@Controller 这里需要使用异步交互
 @RequestMapping("/sms/clazzController")
 public class ClazzController {

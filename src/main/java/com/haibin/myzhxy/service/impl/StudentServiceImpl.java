@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.haibin.myzhxy.mapper.StudentMapper;
+import com.haibin.myzhxy.pojo.Admin;
 import com.haibin.myzhxy.pojo.LoginForm;
 import com.haibin.myzhxy.pojo.Student;
 import com.haibin.myzhxy.pojo.Teacher;
@@ -50,7 +51,6 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, Student> impl
             if (student.getName() != null) {
                 queryWrapper.like("name", student.getName());
             }
-            // Dsc为降序排序 Asc为升序排序
             queryWrapper.orderByDesc("id");
             queryWrapper.orderByAsc("name");
         }
@@ -59,4 +59,5 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, Student> impl
 
         return pages;
     }
+
 }
