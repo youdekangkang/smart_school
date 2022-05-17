@@ -4,7 +4,6 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.haibin.myzhxy.mapper.TeacherMapper;
 import com.haibin.myzhxy.pojo.LoginForm;
-import com.haibin.myzhxy.pojo.Student;
 import com.haibin.myzhxy.pojo.Teacher;
 import com.haibin.myzhxy.service.TeacherService;
 import com.haibin.myzhxy.util.MD5;
@@ -24,5 +23,14 @@ public class TeacherServiceImpl extends ServiceImpl<TeacherMapper, Teacher> impl
 
         Teacher teacher = baseMapper.selectOne(queryWrapper);
         return teacher;
+    }
+
+    @Override
+    public Teacher getTeacherById(Long userId) {
+
+        QueryWrapper queryWrapper = new QueryWrapper<Teacher>();
+        queryWrapper.eq("id",userId);
+        return baseMapper.selectOne(queryWrapper);
+
     }
 }

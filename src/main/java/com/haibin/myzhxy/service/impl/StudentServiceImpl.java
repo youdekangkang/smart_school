@@ -4,9 +4,9 @@ package com.haibin.myzhxy.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.haibin.myzhxy.mapper.StudentMapper;
-import com.haibin.myzhxy.pojo.Admin;
 import com.haibin.myzhxy.pojo.LoginForm;
 import com.haibin.myzhxy.pojo.Student;
+import com.haibin.myzhxy.pojo.Teacher;
 import com.haibin.myzhxy.service.StudentService;
 import com.haibin.myzhxy.util.MD5;
 import org.springframework.stereotype.Service;
@@ -25,5 +25,12 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, Student> impl
 
         Student student = baseMapper.selectOne(queryWrapper);
         return student;
+    }
+
+    @Override
+    public Student getStudentById(Long userId) {
+        QueryWrapper queryWrapper = new QueryWrapper<Student>();
+        queryWrapper.eq("id",userId);
+        return baseMapper.selectOne(queryWrapper);
     }
 }

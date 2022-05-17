@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.haibin.myzhxy.mapper.AdminMapper;
 import com.haibin.myzhxy.pojo.Admin;
 import com.haibin.myzhxy.pojo.LoginForm;
+import com.haibin.myzhxy.pojo.Teacher;
 import com.haibin.myzhxy.service.AdminService;
 import com.haibin.myzhxy.util.MD5;
 import org.springframework.stereotype.Service;
@@ -24,5 +25,12 @@ public class AdminServiceImpl extends ServiceImpl<AdminMapper, Admin> implements
 
         Admin admin = baseMapper.selectOne(queryWrapper);
         return admin;
+    }
+
+    @Override
+    public Admin getAdminById(Long userId) {
+        QueryWrapper queryWrapper = new QueryWrapper<Admin>();
+        queryWrapper.eq("id",userId);
+        return baseMapper.selectOne(queryWrapper);
     }
 }

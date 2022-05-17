@@ -10,13 +10,13 @@ import com.haibin.myzhxy.service.TeacherService;
 import com.haibin.myzhxy.util.CreateVerifiCodeImage;
 import com.haibin.myzhxy.util.JwtHelper;
 import com.haibin.myzhxy.util.Result;
+import com.haibin.myzhxy.util.ResultCodeEnum;
 import io.jsonwebtoken.JwtParser;
+import org.omg.CORBA.INTERNAL;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpRequest;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
 import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -37,6 +37,41 @@ public class SystemController {
     private StudentService studentService;
     @Autowired
     private TeacherService teacherService;
+
+
+    @GetMapping("/getInfo")
+    public Result getInfoByToken(@RequestHeader("token") String token){
+        boolean expiration = JwtHelper.isExpiration(token);
+        if (expiration) {
+            return Result.build(null, ResultCodeEnum.TOKEN_ERROR);
+        }
+        //从token中解析出用户id以及用户的类型
+        Long userId = JwtHelper.getUserId(token);
+        Integer userType = JwtHelper.getUserType(token);
+
+        Map<String,Object> map = new LinkedHashMap<>();
+        switch (userType) {
+            case 1:
+                Admin admin = adminService.getAdminById(userId);
+                map.put("userType",1);
+                map.put("userId",admin);
+                break;
+            case 2:
+                Student student = studentService.getStudentById(userId);
+                map.put("userType",2);
+                map.put("userId",student);
+                break;
+            case 3:
+                Teacher teacher = teacherService.getTeacherById(userId);
+                map.put("userType",3);
+                map.put("userId",teacher);
+                break;
+        }
+
+        return Result.ok(map);
+    }
+
+
 
     @PostMapping("/login")
     public Result login(@RequestBody LoginForm loginForm, HttpServletRequest request){
